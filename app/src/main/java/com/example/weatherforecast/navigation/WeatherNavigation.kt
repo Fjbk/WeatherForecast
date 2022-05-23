@@ -1,10 +1,12 @@
 package com.example.weatherforecast.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherforecast.screens.main.MainScreen
+import com.example.weatherforecast.screens.main.MainViewModel
 import com.example.weatherforecast.screens.splash.WeatherSplashScreen
 
 @Composable
@@ -17,7 +19,8 @@ fun WeatherNavigation() { //Hoster alt den navigation der skal bruges
         }
 
         composable(WeatherScreens.MainScreen.name){ //Her at screenet rent faktisk kaldes
-            MainScreen(navController)
+            val mainViewModel = hiltViewModel<MainViewModel>()
+            MainScreen(navController, mainViewModel)
         }
     }
 }

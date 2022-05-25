@@ -3,7 +3,11 @@ package com.example.weatherforecast.screens.main
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -12,18 +16,26 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.example.weatherforecast.R
 import com.example.weatherforecast.data.DataOrException
 import com.example.weatherforecast.model.Weather
+import com.example.weatherforecast.model.WeatherItem
 import com.example.weatherforecast.model.WeatherObject
+import com.example.weatherforecast.navigation.WeatherScreens
 import com.example.weatherforecast.utils.formatDate
+import com.example.weatherforecast.utils.formatDateTime
 import com.example.weatherforecast.utils.formatDecimals
-import com.example.weatherforecast.widgets.WeatherAppBar
+import com.example.weatherforecast.widgets.*
 
 @Composable
 fun MainScreen(
@@ -47,8 +59,11 @@ fun MainScreen(
 fun MainScaffold(weather: Weather, navController: NavController) {
     Scaffold(topBar = {
         WeatherAppBar(title = weather.city.name + ", ${weather.city.country}",
-            icon = Icons.Default.ArrowBack,
+            //icon = Icons.Default.ArrowBack,
             navController = navController,
+            onAddActionClicked = {
+                navController.navigate(WeatherScreens.SearchScreen.name)
+            },
             elevation = 5.dp) {
 
         }
@@ -82,10 +97,22 @@ fun MainContent(data: Weather) {
                 Text(text = data.list[0].weather[0].main, fontStyle = FontStyle.Italic)
             }
         }
+        HumidityWindPressureRow(weather = data.list[0])
+        Divider()
+        SunriseSunsetRow(weather = data.list[0])
+        Text("Denne uge:", style = MaterialTheme.typography.subtitle1, fontWeight = FontWeight.Bold)
+        Surface(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(), color = Color.LightGray, shape = RoundedCornerShape(14.dp)) {
+            LazyColumn(modifier = Modifier.padding(2.dp), contentPadding = PaddingValues(1.dp)){
+                //Lambdaen looper igennem listen for at hente alle værdierne
+                items(items = data.list){ item: WeatherItem ->
+                    WeatherDetailRow(item)
+                }
+            }
+        }
     }
 }
 
-@Composable
-fun WeatherStateImage(imageUrl: String) {
-    Image(painter = rememberImagePainter(imageUrl), contentDescription = "icon", modifier = Modifier.size(80.dp))
-}
+
+

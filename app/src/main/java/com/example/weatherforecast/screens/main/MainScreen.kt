@@ -40,11 +40,13 @@ import com.example.weatherforecast.widgets.*
 @Composable
 fun MainScreen(
     navController: NavController,
-    mainViewModel: MainViewModel = hiltViewModel()
+    mainViewModel: MainViewModel = hiltViewModel(),
+    city: String?
 ) {
+    Log.d("TAG", "MainScreen: $city")
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(
         initialValue = DataOrException(loading = true)){
-        value = mainViewModel.getWeatherData(city = "Odense")
+        value = mainViewModel.getWeatherData(city = city.toString())
     }.value //For at gøre værdien af det ovenstående til weatherData
 
     if (weatherData.loading == true){

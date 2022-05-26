@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.weatherforecast.navigation.WeatherNavigation
@@ -18,6 +19,7 @@ import com.example.weatherforecast.ui.theme.WeatherForecastTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 //Entry point til alle dependencies som skal bruges i projektet
+@ExperimentalComposeUiApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalComposeUiApi
 @Composable
 fun WeatherApp(){
     WeatherForecastTheme {

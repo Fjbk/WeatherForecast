@@ -29,6 +29,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun WeatherSplashScreen(navController: NavController) {
+    val defaultCity = "Odense"
     val scale = remember { Animatable(0f) }
     LaunchedEffect(key1 = true, block = {
         scale.animateTo(targetValue = 0.9f,
@@ -37,7 +38,7 @@ fun WeatherSplashScreen(navController: NavController) {
                             easing = { OvershootInterpolator(8f).getInterpolation(it)})) //Indsætter værdien imellem den indtastede værdi og den oprindelige værdi
         delay(2000L)
 
-        navController.navigate(route = WeatherScreens.MainScreen.name)
+        navController.navigate(route = WeatherScreens.MainScreen.name + "/$defaultCity")
     })
 
     Surface(

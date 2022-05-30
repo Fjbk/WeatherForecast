@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherforecast.model.Favourite
 import com.example.weatherforecast.repository.WeatherDbRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavouritesViewModel @Inject constructor(private val repository: WeatherDbRepository) : ViewModel(){
+@HiltViewModel
+class FavouriteViewModel @Inject constructor(private val repository: WeatherDbRepository) : ViewModel(){
 
     //Er en tom liste i starten men favList ender med at være en liste over Favourite objekter
     private val _favList = MutableStateFlow<List<Favourite>>(emptyList())

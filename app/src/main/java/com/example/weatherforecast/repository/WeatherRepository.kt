@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 //Giver adgang til WeatherApi klassen som bruges til at oprette repositoriet
 class WeatherRepository @Inject constructor(private val api: WeatherApi) {
-    suspend fun getWeather(cityQuery: String): DataOrException<Weather, Boolean, Exception> { //DataOrException klassen er oprettet til at hvad som helst kan wrappes ind i den
+    suspend fun getWeather(cityQuery: String, units: String): DataOrException<Weather, Boolean, Exception> { //DataOrException klassen er oprettet til at hvad som helst kan wrappes ind i den
         val response = try {
-            api.getWeather(query = cityQuery)
+            api.getWeather(query = cityQuery, units = units)
         }catch (e: Exception){
             Log.d("catch", "getWeather error: $e")
             return DataOrException(e = e)

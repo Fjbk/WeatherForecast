@@ -28,6 +28,7 @@ class SettingsViewModel @Inject constructor( private val repository: WeatherDbRe
                 .collect { listOfUnits ->
                     if (listOfUnits.isNullOrEmpty()) {
                         Log.d("TAG", ":Empty list ")
+                        _unitList.value = listOf(Unit("Celsius"))
                     } else {
                         _unitList.value = listOfUnits
                     }

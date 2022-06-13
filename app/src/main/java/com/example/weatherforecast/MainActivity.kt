@@ -36,7 +36,7 @@ fun WeatherApp(){
     WeatherForecastTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+            color = MaterialTheme.colors.onPrimary
         ) {
             Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally){
                 WeatherNavigation()

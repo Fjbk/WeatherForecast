@@ -36,7 +36,7 @@ fun WeatherSplashScreen(navController: NavController) {
                         animationSpec = tween( //Kontrollerer animationen
                             durationMillis = 800,
                             easing = { OvershootInterpolator(8f).getInterpolation(it)})) //Indsætter værdien imellem den indtastede værdi og den oprindelige værdi
-        delay(2000L)
+        //delay(2000L)
 
         navController.navigate(route = WeatherScreens.MainScreen.name + "/$defaultCity")
     })

@@ -1,5 +1,6 @@
 package com.example.weatherforecast.screens.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,6 +24,7 @@ import com.example.weatherforecast.screens.settings.SettingsViewModel
 import com.example.weatherforecast.utils.formatDate
 import com.example.weatherforecast.utils.formatDecimals
 import com.example.weatherforecast.widgets.*
+
 
 @Composable
 fun MainScreen(
@@ -54,6 +56,11 @@ fun MainScreen(
             MainScaffold(weather = weatherData.data!!, navController = navController, isImperial = isImperial)
         }
     }
+    else {
+        Surface() {
+            Text("unitFromDb.isNullOrEmpty er true")
+        }
+    }
 }
 
 
@@ -83,7 +90,7 @@ fun MainContent(data: Weather, isImperial: Boolean) {
             .padding(4.dp)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = formatDate(data.list[0].dt), style = MaterialTheme.typography.caption, color = MaterialTheme.colors.onSecondary, fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(6.dp))
 
